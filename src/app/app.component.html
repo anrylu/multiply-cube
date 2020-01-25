@@ -1,10 +1,21 @@
+<form [formGroup]="configForm" (ngSubmit)="onSubmit(configForm.value)">
+  <div>
+    <label>乘法表大小</label>
+    <input type="number" formControlName="multiplication_count">
+    <label>面數</label>
+    <input type="number" formControlName="face_count">
+    <button class="button" type="submit">Apply</button>  
+  </div>
+</form>
+
 <mat-tab-group>
-  <mat-tab label="First">
+  <mat-tab label="乘法表">
+    <app-multiplication-table></app-multiplication-table>
+  </mat-tab>
+  <mat-tab label="數字配置">
     <hello name="{{ name }}"></hello>
     <p>
       Start editing to see some magic happen :)
     </p>
   </mat-tab>
-  <mat-tab label="Second"> Content 2 </mat-tab>
-  <mat-tab label="Third"> Content 3 </mat-tab>
 </mat-tab-group>
