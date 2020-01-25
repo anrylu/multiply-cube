@@ -8,14 +8,16 @@ import { FormBuilder } from '@angular/forms';
 })
 export class AppComponent  {
   name = 'Angular';
+  multiplication_count = 9;
+  face_count = 6;
   configForm;
 
   constructor(
     private formBuilder: FormBuilder,
   ) {
     this.configForm = this.formBuilder.group({
-      multiplication_count: 9,
-      face_count: 6
+      multiplication_count: this.multiplication_count,
+      face_count: this.face_count
     });
   }
  
