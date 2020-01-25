@@ -2,9 +2,9 @@
   <tbody>
   <tr>
     <td bgcolor="yellow">X</td>
-    <td *ngFor="let multiplier of multiplers" bgcolor="yellow">{{multiplier}}</td>
+    <td *ngFor="let multiplier of multiplicationTableService.multiplers" bgcolor="yellow">{{multiplier}}</td>
   </tr>
-  <tr *ngFor="let element of data">
+  <tr *ngFor="let element of multiplicationTableService.data">
     <td bgcolor="yellow">{{element.multiplier}}</td>
     <td *ngFor="let value of element.result">{{value}}</td>
   </tr>

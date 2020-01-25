@@ -1,10 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MultiplicationTableService } from '../multiplication-table.service';
 
-export interface MultiplyElement {
-  multiplier: number;
-  result: number[];
-  is_unique: boolean[];
-}
+
 
 @Component({
   selector: 'app-multiplication-table',
@@ -12,22 +9,11 @@ export interface MultiplyElement {
   styleUrls: ['./multiplication-table.component.css']
 })
 export class MultiplicationTableComponent implements OnInit {
-  @Input() multiplication_count: number;
-  multiplers: number[] = [];
-  data: MultiplyElement[]  = [];
-
-  constructor() {
+  multiplicationTableService: MultiplicationTableService;
+  constructor(multiplicationTableService: MultiplicationTableService) {
+    this.multiplicationTableService = multiplicationTableService;
   }
 
   ngOnInit() {
-    var element: MultiplyElement;
-    for( var i=1; i<=this.multiplication_count; i++ ) {
-      this.multiplers.push(i);
-      element = {multiplier: i, result: [], is_unique: []};
-      for( var j=1; j<=this.multiplication_count; j++ ) {
-        element.result.push(i*j);
-      }
-      this.data.push(element);
-    }
   }
 }

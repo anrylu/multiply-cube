@@ -11,23 +11,24 @@ export class AppComponent  {
   multiplicationTableService: MultiplicationTableService;
 
   name = 'Angular';
-  multiplication_count = 9;
-  face_count = 6;
   configForm;
 
   constructor(
+    multiplicationTableService: MultiplicationTableService,
     private formBuilder: FormBuilder,
   ) {
+    this.multiplicationTableService = multiplicationTableService;
     this.configForm = this.formBuilder.group({
-      multiplication_count: this.multiplication_count,
-      face_count: this.face_count
+      multiplication_count: multiplicationTableService.multiplication_count,
+      face_count: multiplicationTableService.face_count
     });
   }
  
   onSubmit(customerData) {
     // Process checkout data here
     console.warn('Your order has been submitted', customerData);
-    this.multiplication_count = customerData.multiplication_count;
-    console.log(this.multiplication_count);
+    this.multiplicationTableService.multiplication_count = customerData.multiplication_count;
+    this.multiplicationTableService.calculate();
+    console.log(this.multiplicationTableService.multiplication_count);
   }
 }
