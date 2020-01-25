@@ -1,9 +1,9 @@
 <form [formGroup]="configForm" (ngSubmit)="onSubmit(configForm.value)">
   <div>
-    <label>乘法表大小</label>
-    <input type="number" formControlName="multiplication_count">
-    <label>面數</label>
-    <input type="number" formControlName="face_count">
+    <label>乘法表大小: </label>
+    <input type="number" formControlName="multiplication_count" min="1" max="20">
+    <label>面數: </label>
+    <input type="number" formControlName="face_count" min="6" max="20">
     <button class="button" type="submit">Apply</button>  
   </div>
 </form>
