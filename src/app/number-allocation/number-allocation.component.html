@@ -1,8 +1,8 @@
 <table>
   <tbody>
-  <tr *ngFor="let element of multiplicationTableService.data">
-    <td *ngFor="let result_element of element.result; let i = index" [ngStyle]="{'color': result_element.is_unique? '#FF0000' : '#000000', 'text-decoration': result_element.is_unique? 'underline': ''}">
-      {{result_element.value}}
+  <tr *ngFor="let tmp of multiplicationTableService.number_allocation[0]; let i=index">
+    <td *ngFor="let multiplier of multiplicationTableService.multiplers" style="color:#FF0000">
+      {{multiplicationTableService.number_allocation[multiplier-1][i]}}
     </td>
   </tr>
   <tr>
