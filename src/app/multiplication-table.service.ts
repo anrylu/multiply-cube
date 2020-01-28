@@ -87,7 +87,6 @@ export class MultiplicationTableService {
       unique_values.shift()
     }
 
-prev_check_number_forbidden_ret = this.check_number_forbidden(this.number_allocation[i], unique_values[j], true);
     // others
     var run_count = 0;
     while( run_count < 1000 && unique_values.length > 0 ) {
@@ -97,16 +96,16 @@ prev_check_number_forbidden_ret = this.check_number_forbidden(this.number_alloca
         var prev_check_number_forbidden_ret = 0;
         var curr_check_number_forbidden_ret = 0;
         for( var j=0; j<unique_values.length; j++ ) {
+          if( this.number_allocation[i].forbidden.indexOf(unique_values[j]) >= 0 ) continue;
+          curr_check_number_forbidden_ret = this.check_number_forbidden(this.number_allocation[i], unique_values[j], true);
+          if( curr_check_number_forbidden_ret > prev_check_number_forbidden_ret ) {
+            selected_index = j;
+            prev_check_number_forbidden_ret = curr_check_number_forbidden_ret;
+          }
         }
-      }
-    }
-    for( var i=0; i<unique_values.length; i++ ) {
-      for( var j=0; j<this.multiplication_count; j++ ) {
-        if( this.number_allocation[j].result.length >= 4 ) continue;
-        if( this.number_allocation[j].forbidden.indexOf(unique_values[i]) < 0 ) {
-          this.number_allocation[j].result.push(unique_values[i]);
-          this.add_number_forbidden(this.number_allocation[j], unique_values[i]);
-          break;
+        if( selected_index >= 0 ) {
+          this.number_allocation[i].result.push(unique_values[selected_index]);
+          this.check_number_forbidden(this.number_allocation[i], unique_values[selected_index], false);
         }
       }
     }
