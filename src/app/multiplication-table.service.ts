@@ -87,10 +87,18 @@ export class MultiplicationTableService {
       unique_values.shift()
     }
 
+prev_check_number_forbidden_ret = this.check_number_forbidden(this.number_allocation[i], unique_values[j], true);
     // others
     var run_count = 0;
     while( run_count < 1000 && unique_values.length > 0 ) {
       run_count++;
+      for( var i=0; i<this.multiplication_count; i++ ) {
+        var selected_index = -1;
+        var prev_check_number_forbidden_ret = 0;
+        var curr_check_number_forbidden_ret = 0;
+        for( var j=0; j<unique_values.length; j++ ) {
+        }
+      }
     }
     for( var i=0; i<unique_values.length; i++ ) {
       for( var j=0; j<this.multiplication_count; j++ ) {
