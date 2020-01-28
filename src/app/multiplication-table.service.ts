@@ -19,6 +19,7 @@ export class MultiplicationTableService {
   multiplers: number[] = [];
   data: MultiplyElement[]  = [];
   unique_values: number[] = [];
+  number_allocation: number[][] = [];
 
   calculate() {
     var element: MultiplyElement;
@@ -49,6 +50,14 @@ export class MultiplicationTableService {
         }
       }
     }
+
+    // calculate number allcation
+    let unique_values = Array.from(this.unique_values);
+    for( var i=0; i<this.multiplication_count; i++ ) {
+      this.number_allocation.push([unique_values[0]]);
+      unique_values.shift()
+    }
+    console.log(this.number_allocation);
   }
 
   constructor() {

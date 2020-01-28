@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MultiplicationTableService } from '../multiplication-table.service';
 
 @Component({
-  selector: 'app-multiplication-table',
-  templateUrl: './multiplication-table.component.html',
-  styleUrls: ['./multiplication-table.component.css']
+  selector: 'app-number-allocation',
+  templateUrl: './number-allocation.component.html',
+  styleUrls: ['./number-allocation.component.css']
 })
-export class MultiplicationTableComponent implements OnInit {
+export class NumberAllocationComponent implements OnInit {
+
   multiplicationTableService: MultiplicationTableService;
   constructor(multiplicationTableService: MultiplicationTableService) {
     this.multiplicationTableService = multiplicationTableService;
   }
-
   ngOnInit() {
   }
+
 }

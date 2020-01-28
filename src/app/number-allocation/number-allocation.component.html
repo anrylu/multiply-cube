@@ -1,0 +1,12 @@
+<table>
+  <tbody>
+  <tr *ngFor="let element of multiplicationTableService.data">
+    <td *ngFor="let result_element of element.result; let i = index" [ngStyle]="{'color': result_element.is_unique? '#FF0000' : '#000000', 'text-decoration': result_element.is_unique? 'underline': ''}">
+      {{result_element.value}}
+    </td>
+  </tr>
+  <tr>
+    <td *ngFor="let multiplier of multiplicationTableService.multiplers">骰{{multiplier}}</td>
+  </tr>
+  </tbody>
+</table>
