@@ -30,7 +30,7 @@ export class MultiplicationTableService {
   check_number_forbidden(number_allocation, new_value, dryrun) {
     var ret = 0;
     for( var i=0; i<this.multiplication_count; i++) {
-      if( this.number_forbidden[i].indexOf(new_value) > 0 ) {
+      if( this.number_forbidden[i].indexOf(new_value) >= 0 ) {
         if( !dryrun ) {
           number_allocation.forbidden = number_allocation.forbidden.concat(this.number_forbidden[i]);
         }
@@ -48,6 +48,8 @@ export class MultiplicationTableService {
     this.multiplers = [];
     this.data = [];
     this.unique_values = [];
+    this.number_forbidden = [];
+    this.number_allocation = [];
 
     // generate data
     for( var i=1; i<=this.multiplication_count; i++ ) {
@@ -84,12 +86,12 @@ export class MultiplicationTableService {
     for( var i=0; i<this.multiplication_count; i++ ) {
       this.number_allocation.push({result: [unique_values[0]], forbidden: []});
       this.check_number_forbidden(this.number_allocation[i], unique_values[0], false);
-      unique_values.shift()
+      unique_values.shift();
     }
 
     // others
     var run_count = 0;
-    while( run_count < 1000 && unique_values.length > 0 ) {
+    while( run_count < 100 && unique_values.length > 0 ) {
       run_count++;
       for( var i=0; i<this.multiplication_count; i++ ) {
         var selected_index = -1;
@@ -106,9 +108,11 @@ export class MultiplicationTableService {
         if( selected_index >= 0 ) {
           this.number_allocation[i].result.push(unique_values[selected_index]);
           this.check_number_forbidden(this.number_allocation[i], unique_values[selected_index], false);
+          unique_values.splice(selected_index, 1);
         }
       }
     }
+    console.log(unique_values);
     console.log(this.number_allocation);
   }
 
