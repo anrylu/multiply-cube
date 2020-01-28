@@ -21,6 +21,12 @@ export class MultiplicationTableService {
   unique_values: number[] = [];
   number_allocation: number[][] = [];
 
+  add_number_forbidden(number_forbidden, new_value) {
+    for( var i=1; i<=this.multiplication_count; i++) {
+      number_forbidden.push(new_value*i);
+    }
+  }
+
   calculate() {
     var element: MultiplyElement;
     var result_element: ResultElement;
@@ -52,10 +58,22 @@ export class MultiplicationTableService {
     }
 
     // calculate number allcation
+    var number_forbidden: number[][] = [];
     let unique_values = Array.from(this.unique_values);
     for( var i=0; i<this.multiplication_count; i++ ) {
       this.number_allocation.push([unique_values[0]]);
+      number_forbidden.push([]);
+      this.add_number_forbidden(number_forbidden[i], unique_values[0]);
       unique_values.shift()
+    }
+    for( var i=0; i<unique_values.length; i++ ) {
+      for( var j=0; j<this.multiplication_count; j++ ) {
+        if( number_forbidden[j].indexOf(unique_values[i]) < 0 ) {
+          this.number_allocation[j].push(unique_values[i]);
+          this.add_number_forbidden(number_forbidden[j], unique_values[i]);
+          break;
+        }
+      }
     }
     console.log(this.number_allocation);
   }
