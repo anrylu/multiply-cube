@@ -1,8 +1,8 @@
 <table>
   <tbody>
-  <tr *ngFor="let tmp of multiplicationTableService.number_allocation[0]; let i=index">
+  <tr *ngFor="let tmp of multiplicationTableService.number_allocation[0].result; let i=index">
     <td *ngFor="let multiplier of multiplicationTableService.multiplers" style="color:#FF0000">
-      {{multiplicationTableService.number_allocation[multiplier-1][i]}}
+      {{multiplicationTableService.number_allocation[multiplier-1].result[i]}}
     </td>
   </tr>
   <tr>

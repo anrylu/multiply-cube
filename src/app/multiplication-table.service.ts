@@ -9,6 +9,11 @@ export interface MultiplyElement {
   result: ResultElement[];
 }
 
+export interface AllocationElement {
+  result: number[];
+  forbidden: number[];
+}
+
 @Injectable()
 export class MultiplicationTableService {
   // config
@@ -19,11 +24,14 @@ export class MultiplicationTableService {
   multiplers: number[] = [];
   data: MultiplyElement[]  = [];
   unique_values: number[] = [];
-  number_allocation: number[][] = [];
+  number_forbidden: number[][] = [];
+  number_allocation: AllocationElement[] = [];
 
-  add_number_forbidden(number_forbidden, new_value) {
-    for( var i=1; i<=this.multiplication_count; i++) {
-      number_forbidden.push(new_value*i);
+  add_number_forbidden(number_allocation, new_value) {
+    for( var i=0; i<this.multiplication_count; i++) {
+      if( this.number_forbidden[i].indexOf(new_value) > 0 ) {
+        number_allocation.forbidden = number_allocation.forbidden.concat(this.number_forbidden[i]);
+      }
     }
   }
 
@@ -57,20 +65,27 @@ export class MultiplicationTableService {
       }
     }
 
+    // generate number forbidden
+    for( var i=0; i<this.multiplication_count; i++ ) {
+      this.number_forbidden.push([]);
+      for( var j=0; j<this.multiplication_count; j++ ) {
+        this.number_forbidden[i].push((i+1)*(j+1));
+      }
+    }
+
     // calculate number allcation
-    var number_forbidden: number[][] = [];
     let unique_values = Array.from(this.unique_values);
     for( var i=0; i<this.multiplication_count; i++ ) {
-      this.number_allocation.push([unique_values[0]]);
-      number_forbidden.push([]);
-      this.add_number_forbidden(number_forbidden[i], unique_values[0]);
+      this.number_allocation.push({result: [unique_values[0]], forbidden: []});
+      this.add_number_forbidden(this.number_allocation[i], unique_values[0]);
       unique_values.shift()
     }
     for( var i=0; i<unique_values.length; i++ ) {
       for( var j=0; j<this.multiplication_count; j++ ) {
-        if( number_forbidden[j].indexOf(unique_values[i]) < 0 ) {
-          this.number_allocation[j].push(unique_values[i]);
-          this.add_number_forbidden(number_forbidden[j], unique_values[i]);
+        if( this.number_allocation[j].result.length >= 4 ) continue;
+        if( this.number_allocation[j].forbidden.indexOf(unique_values[i]) < 0 ) {
+          this.number_allocation[j].result.push(unique_values[i]);
+          this.add_number_forbidden(this.number_allocation[j], unique_values[i]);
           break;
         }
       }
