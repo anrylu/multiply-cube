@@ -27,12 +27,17 @@ export class MultiplicationTableService {
   number_forbidden: number[][] = [];
   number_allocation: AllocationElement[] = [];
 
-  add_number_forbidden(number_allocation, new_value) {
+  check_number_forbidden(number_allocation, new_value, dryrun) {
+    var ret = 0;
     for( var i=0; i<this.multiplication_count; i++) {
       if( this.number_forbidden[i].indexOf(new_value) > 0 ) {
-        number_allocation.forbidden = number_allocation.forbidden.concat(this.number_forbidden[i]);
+        if( !dryrun ) {
+          number_allocation.forbidden = number_allocation.forbidden.concat(this.number_forbidden[i]);
+        }
+        ret++;
       }
     }
+    return ret;
   }
 
   calculate() {
@@ -75,10 +80,17 @@ export class MultiplicationTableService {
 
     // calculate number allcation
     let unique_values = Array.from(this.unique_values);
+    // 1's multiples
     for( var i=0; i<this.multiplication_count; i++ ) {
       this.number_allocation.push({result: [unique_values[0]], forbidden: []});
-      this.add_number_forbidden(this.number_allocation[i], unique_values[0]);
+      this.check_number_forbidden(this.number_allocation[i], unique_values[0], false);
       unique_values.shift()
+    }
+
+    // others
+    var run_count = 0;
+    while( run_count < 1000 && unique_values.length > 0 ) {
+      run_count++;
     }
     for( var i=0; i<unique_values.length; i++ ) {
       for( var j=0; j<this.multiplication_count; j++ ) {
