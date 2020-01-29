@@ -1,12 +1,16 @@
-<table>
-  <tbody>
-  <tr *ngFor="let tmp of multiplicationTableService.number_allocation[0].result; let i=index">
-    <td *ngFor="let multiplier of multiplicationTableService.multiplers" style="color:#FF0000">
-      {{multiplicationTableService.number_allocation[multiplier-1].result[i]}}
-    </td>
-  </tr>
-  <tr>
-    <td *ngFor="let multiplier of multiplicationTableService.multiplers">骰{{multiplier}}</td>
-  </tr>
-  </tbody>
-</table>
+<label>共有 {{multiplicationTableService.number_allocation.length}} 種分配方法</label>
+<div *ngFor="let number_allocation_element of multiplicationTableService.number_allocation; let i=index">
+  <label>分配方法#{{i}}: </label>
+  <table>
+    <tbody>
+    <tr *ngFor="let tmp of number_allocation_element[0].result; let i=index">
+      <td *ngFor="let multiplier of multiplicationTableService.multiplers" style="color:#FF0000">
+        {{number_allocation_element[multiplier-1].result[i]}}
+      </td>
+    </tr>
+    <tr>
+      <td *ngFor="let multiplier of multiplicationTableService.multiplers">骰{{multiplier}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
