@@ -14,6 +14,7 @@ export interface AllocationElement {
   forbidden: number[];
 }
 
+const NUMBER_ALLOCATION_FOR_1 = [[[1]]];
 const NUMBER_ALLOCATION_FOR_9 = [[[1, 10, 24, 63], [2, 15, 36, 56], [3, 16, 35, 54], [4, 21, 30, 72], [5, 18, 28, 64], [6, 32, 45, 49], [7, 12, 40, 81], [8, 27, 25, 42], [9, 14, 20, 48]],
 [[1, 10, 24, 63], [2, 15, 36, 56], [3, 16, 35, 54], [4, 21, 30, 72], [5, 18, 32, 49], [6, 28, 40, 81], [7, 12, 45, 64], [8, 27, 25, 42], [9, 14, 20, 48]],
 [[1, 10, 24, 63], [2, 15, 36, 56], [3, 16, 35, 54], [4, 21, 30, 72], [5, 18, 32, 49], [6, 28, 45, 64], [7, 12, 40, 81], [8, 27, 25, 42], [9, 14, 20, 48]],
@@ -245,11 +246,13 @@ export class MultiplicationTableService {
       }
     }
 
-    if( this.multiplication_count == 9 ) {
+    if( this.multiplication_count == 1 ) {
+      this.number_allocation = NUMBER_ALLOCATION_FOR_1;
+    } else if( this.multiplication_count == 9 ) {
       this.number_allocation = NUMBER_ALLOCATION_FOR_9;
     }
     console.log(this.unique_values);
-    console.log(this.number_allocation);
+    console.log(this.number_allocation.toString());
   }
 
   constructor() {
