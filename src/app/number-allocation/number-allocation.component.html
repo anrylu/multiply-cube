@@ -5,7 +5,7 @@
     <tbody>
     <tr *ngFor="let tmp of number_allocation_element[0]; let i=index">
       <td *ngFor="let multiplier of multiplicationTableService.multiplers" style="color:#FF0000">
-        {{number_allocation_element[multiplier-1][i]}}
+        {{number_allocation_element[multiplier-1][i] == 0? '' : number_allocation_element[multiplier-1][i]}}
       </td>
     </tr>
     <tr>
