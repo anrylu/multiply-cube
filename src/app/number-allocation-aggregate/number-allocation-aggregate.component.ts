@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MultiplicationTableService } from '../multiplication-table.service';
 
 @Component({
   selector: 'app-number-allocation-aggregate',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NumberAllocationAggregateComponent implements OnInit {
 
-  constructor() { }
+  tableHeader = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  multiplicationTableService: MultiplicationTableService;
+  constructor(multiplicationTableService: MultiplicationTableService) {
+    this.multiplicationTableService = multiplicationTableService;
+  }
 
   ngOnInit() {
   }

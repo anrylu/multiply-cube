@@ -1,0 +1,12 @@
+<label>共有 {{multiplicationTableService.number_allocation.length}} 種分配方法</label>
+<table>
+  <thead>
+    <th>組別</th>
+    <th *ngFor="let multiplier of multiplicationTableService.multiplers;">{{this.tableHeader[multiplier-1]}}</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let number_allocation_element of multiplicationTableService.number_allocation; let i=index">
+      <td>分配方法#{{i+1}}:</td>
+    <tr>
+  </tbody>
+</table>
