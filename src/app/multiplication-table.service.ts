@@ -315,8 +315,12 @@ export class MultiplicationTableService {
   data: MultiplyElement[]  = [];
   unique_values: number[] = [];
   number_allocation: number[][][] = [];
+  row_spans: number[][] = [];
+  number_allocation_aggregate: number[][][] = [];
 
   calculate() {
+    var i: number;
+    var j: number;
     var element: MultiplyElement;
     var result_element: ResultElement;
 
@@ -327,10 +331,10 @@ export class MultiplicationTableService {
     this.number_allocation = [];
 
     // generate data
-    for( var i=1; i<=this.multiplication_count; i++ ) {
+    for( i=1; i<=this.multiplication_count; i++ ) {
       this.multiplers.push(i);
       element = {multiplier: i, result: []};
-      for( var j=1; j<=this.multiplication_count; j++ ) {
+      for( j=1; j<=this.multiplication_count; j++ ) {
         result_element = {value: i*j, is_unique: false};
         element.result.push(result_element);
       }
@@ -338,8 +342,8 @@ export class MultiplicationTableService {
     }
 
     // check unique
-    for( var i=0; i<this.multiplication_count; i++ ) {
-      for( var j=0; j<this.multiplication_count; j++ ) {
+    for( i=0; i<this.multiplication_count; i++ ) {
+      for( j=0; j<this.multiplication_count; j++ ) {
         if( this.unique_values.indexOf(this.data[j].result[i].value) < 0 ) {
           this.unique_values.push(this.data[j].result[i].value);
           this.data[j].result[i].is_unique = true;
@@ -349,9 +353,35 @@ export class MultiplicationTableService {
 
     if( NUMBER_ALLOCATION_FOR[this.multiplication_count] ) {
       this.number_allocation = NUMBER_ALLOCATION_FOR[this.multiplication_count];
+      this.number_allocation_aggregate = JSON.parse(JSON.stringify(this.number_allocation));
+      for( i in this.number_allocation_aggregate ) {
+        for( j in this.number_allocation_aggregate[i] ) {
+          this.number_allocation_aggregate[i][j] = this.number_allocation_aggregate[i][j].filter(e => e !== 0);
+        }
+      }
     }
     console.log(this.unique_values);
     console.log(this.number_allocation.toString());
+
+
+    // calculate rowspan
+    this.row_spans = [];
+    var currentElemntsIndex = []
+    for( i in this.number_allocation ) {
+      var row_span = [];
+      for( j in this.number_allocation[i] ) {
+        console.log(JSON.stringify(this.number_allocation[i][j]));
+        if( currentElemntsIndex[j] == undefined || JSON.stringify(this.number_allocation[currentElemntsIndex[j]][j]) != JSON.stringify(this.number_allocation[i][j]) ) {
+          currentElemntsIndex[j] = i;
+          row_span.push(1);
+        } else {
+          this.row_spans[currentElemntsIndex[j]][j]++; 
+          row_span.push(0);
+        }
+      }
+      this.row_spans.push(row_span);
+    }
+    console.log(this.row_spans);
   }
 
   constructor() {

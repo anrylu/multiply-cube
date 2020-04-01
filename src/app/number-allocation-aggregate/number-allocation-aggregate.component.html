@@ -5,8 +5,13 @@
     <th *ngFor="let multiplier of multiplicationTableService.multiplers;">{{this.tableHeader[multiplier-1]}}</th>
   </thead>
   <tbody>
-    <tr *ngFor="let number_allocation_element of multiplicationTableService.number_allocation; let i=index">
-      <td>分配方法#{{i+1}}:</td>
-    <tr>
+    <tr *ngFor="let number_allocation_element of multiplicationTableService.number_allocation_aggregate; let i=index">
+      <td >{{i+1}}</td>
+      <ng-container *ngFor="let multiplier of multiplicationTableService.multiplers">
+        <td *ngIf="multiplicationTableService.row_spans[i][multiplier-1] > 0" [attr.rowspan]="multiplicationTableService.row_spans[i][multiplier-1]">
+          {{number_allocation_element[multiplier-1]}}
+        </td>
+      </ng-container>
+    </tr>
   </tbody>
 </table>
