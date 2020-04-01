@@ -8,7 +8,6 @@ import { MultiplicationTableService } from '../multiplication-table.service';
 })
 export class NumberAllocationAggregateComponent implements OnInit {
 
-  tableHeader = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   multiplicationTableService: MultiplicationTableService;
   constructor(multiplicationTableService: MultiplicationTableService) {
     this.multiplicationTableService = multiplicationTableService;

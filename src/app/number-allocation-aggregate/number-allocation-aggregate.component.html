@@ -2,7 +2,7 @@
 <table>
   <thead>
     <th>組別</th>
-    <th *ngFor="let multiplier of multiplicationTableService.multiplers;">{{this.tableHeader[multiplier-1]}}</th>
+    <th *ngFor="let multiplier of multiplicationTableService.multiplers;">骰{{multiplier}}</th>
   </thead>
   <tbody>
     <tr *ngFor="let number_allocation_element of multiplicationTableService.number_allocation_aggregate; let i=index">
