@@ -1,7 +1,7 @@
 import copy
 
 # init
-multiplication_count = 8
+multiplication_count = 6
 
 if multiplication_count == 2:
     # for 2x2
@@ -25,9 +25,9 @@ elif multiplication_count == 5:
     in_init = [6, 8, 10, 9, 12, 15, 16, 20, 25, 0]
 elif multiplication_count == 6:
     # for 6x6
-    level = 2
+    level = 3
     out_init = [[1], [2], [3], [4], [5], [6]]
-    in_init = [8, 10, 12, 9, 15, 18, 16, 20, 24, 25, 30, 36]
+    in_init = [8, 10, 12, 9, 15, 18, 16, 20, 24, 25, 30, 36, 0, 0, 0, 0, 0, 0]
 elif multiplication_count == 7:
     # for 7x7
     level = 3
@@ -60,7 +60,7 @@ elif multiplication_count == 12:
     in_init = [14, 16, 18, 20, 22, 24, 15, 21, 27, 30, 33, 36, 28, 32, 40, 44, 48, 25, 35, 45, 50, 55, 60, 42, 54, 66, 72, 49, 56, 63, 70, 77, 84, 64, 80, 88, 96, 81, 90, 99, 108, 100, 110, 120, 121, 132, 144, 0]
 
 # generate number forbidden
-number_forbidden_preset = [[0]]
+number_forbidden_preset = [[]]
 for i in range(0, multiplication_count):
     number_forbidden_preset.append([])
     for j in range(0, multiplication_count):
@@ -161,15 +161,15 @@ def recursive_func_level_4(available_numbers, output_array, output_index):
         if available_numbers[i] in forbidden_numbers:
             continue
         forbidden_numbers1 = add_forbidden(forbidden_numbers, available_numbers[i])
-        for j in range(i, available_numbers_len-2):
+        for j in range(i+1, available_numbers_len-2):
             if available_numbers[j] in forbidden_numbers1:
                 continue
             forbidden_numbers2 = add_forbidden(forbidden_numbers1, available_numbers[j])
-            for k in range(j, available_numbers_len-1):
+            for k in range(j+1, available_numbers_len-1):
                 if available_numbers[k] in forbidden_numbers2:
                     continue
                 forbidden_numbers3 = add_forbidden(forbidden_numbers2, available_numbers[k])
-                for l in range(k, available_numbers_len):
+                for l in range(k+1, available_numbers_len):
                     if available_numbers[l] in forbidden_numbers3:
                         continue
                     output_array_copy = copy.deepcopy(output_array)
